@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-10">
+        <div class="btn-group">
+            <div>
+                <a class="btn btn-primary text-white sameSizeButton" asp-controller="Booking" asp-action="Create">
+                    <i class="fas fa-car fa-6x"></i>
+                    <h1>Bokning av bil</h1>
+                </a>
+
+                <a class="btn btn-dark text-white sameSizeButton" asp-controller="Booking" asp-action="Index">
+                    <i class="far fa-credit-card fa-6x"></i>
+                    <h1>Återlämning av bil</h1>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-2"></div>
+</div>

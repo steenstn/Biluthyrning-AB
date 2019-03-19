@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Booking>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br /><br />
+<div class="border border-dark rounded table-light">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-black text-center">Alla bokningar</h2>
+        </div>  
+        
+    </div>
+    <br />
+    <div>
+        @if (Model.Count() > 0)
+        {
+            <div>
+                <table class="table table-striped border">                   
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.Id)
+                            @Html.DisplayFor(m => item.Customer.FirstName)
+                            @Html.DisplayFor(m => item.Customer.LastName)
+                            @Html.DisplayFor(m => item.Customer.SSN)
+                        <td>
+                                <a class="btn btn-danger text-white" asp-action="EndBooking" asp-route-id="@item.Id">
+                                    <i class="fas fa-undo-alt"></i>
+                                    <p6>Avsluta bokning</p6>
+                                </a>
+                        </td>
+                    </tr>
+                    }
+                </table>
+            </div>
+        }
+        else
+        {
+               <p>Inga bokningar är pågående</p>
+        }
+    </div>
+</div>

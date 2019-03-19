@@ -1,0 +1,34 @@
+﻿@model Booking
+@{
+    ViewData["Title"] = "Payment";
+}
+<br /><br />
+<div class="border border-dark rounded table-dark">
+        <div class="col-6">
+            <h2 class="text-black text-center">Kostnad</h2>
+        </div>
+    <br />
+    <div>     
+          <div>
+                <table class="table table-striped">                    
+                        <tr>
+                            <td>
+                                <p>Bokningsnummer: <b> @Html.DisplayFor(m => Model.Id)</b> </p>                                 
+                            </td>
+                            <td>
+                                <p>
+                                    Kund: <b>
+                                        @Html.DisplayFor(m => Model.Customer.FirstName)
+                                        @Html.DisplayFor(m => Model.Customer.LastName)
+                                    </b>
+                                </p>
+                            </td>
+                            <td>
+                                <p>Pris för bokningen: <b> @Html.DisplayFor(m => Model.Price) :- </b></p>
+                            </td>
+                        </tr>                    
+                </table>
+           </div>
+    </div>
+</div>
+

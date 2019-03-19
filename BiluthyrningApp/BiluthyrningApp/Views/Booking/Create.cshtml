@@ -1,0 +1,91 @@
+﻿@model Booking
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<br />
+<br />
+<h1 class="text-black text-center">Ny bokning</h1>
+<form method="post" asp-action="Create">
+    <div class="border border-dark rounded">
+        <br />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Customer.FirstName" class="col-form-label"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Customer.FirstName" class="form-control" />
+            </div>
+            <span asp-validation-for="Customer.FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Customer.LastName" class="col-form-label"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Customer.LastName" class="form-control" />
+            </div>
+            <span asp-validation-for="Customer.LastName" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Customer.SSN" class="col-form-label"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Customer.SSN" class="form-control" />
+            </div>
+            <span asp-validation-for="Customer.SSN" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="@Model.BookingDateAndTime" class="col-form-label"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="@Model.BookingDateAndTime" class="form-control" />
+            </div>
+            <span asp-validation-for="@Model.BookingDateAndTime" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Car.CarSize" class="col-form-label"></label>
+            </div>
+            <div class="col-5">
+                <select asp-for="Car.CarSize" class="form-control">
+                    <option value="Small">Liten</option>
+                    <option value="Van">Van</option>
+                    <option value="Minibus">Minibuss</option>
+                </select>
+            </div>
+            <span asp-validation-for="Car.CarSize" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Car.LicensePlate" class="col-form-label"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Car.LicensePlate" class="form-control" />
+            </div>
+            <span asp-validation-for="Car.LicensePlate" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Car.DistanceInKm" class="col-form-label"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Car.DistanceInKm" class="form-control" />
+            </div>
+            <span asp-validation-for="Car.DistanceInKm" class="text-danger"></span>
+        </div>
+        <div class="row">
+            <div class="col-5"></div>
+            <div class="form-group">
+                <input type="submit" value="Bekräfta bokningen" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+</form>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
