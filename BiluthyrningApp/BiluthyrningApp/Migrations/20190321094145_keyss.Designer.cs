@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BiluthyrningApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190319223136_modelsWithValidation")]
-    partial class modelsWithValidation
+    [Migration("20190321094145_keyss")]
+    partial class keyss
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,9 +33,9 @@ namespace BiluthyrningApp.Migrations
 
                     b.Property<int?>("CustomerId");
 
-                    b.Property<double>("Mileage");
+                    b.Property<decimal>("Mileage");
 
-                    b.Property<double>("Price");
+                    b.Property<decimal>("Price");
 
                     b.Property<DateTime>("ReturnDateAndTime");
 
@@ -54,10 +54,9 @@ namespace BiluthyrningApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CarSize")
-                        .IsRequired();
+                    b.Property<int>("CarSize");
 
-                    b.Property<double>("DistanceInKm");
+                    b.Property<decimal>("DistanceInKm");
 
                     b.Property<string>("LicensePlate");
 

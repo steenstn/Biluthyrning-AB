@@ -14,7 +14,7 @@ namespace BiluthyrningApp.Models
         public Car Car { get; set; }
         [RegularExpression(@"^[+]?\d+([.]\d+)?$", ErrorMessage = "Du måste ange hur långt kuden har kört (ken ej vara negativt)")]
         [Display(Name = "Antal körda kilometer*")]
-        public double Mileage { get; set; }
+        public decimal Mileage { get; set; }
         [Display(Name = "Tid för hömtning*")]
         [Required(ErrorMessage = "Du måste ange när bilen ska hämtas")]
         public DateTime BookingDateAndTime { get; set; }
@@ -22,6 +22,6 @@ namespace BiluthyrningApp.Models
         [Required(ErrorMessage = "Du måste ange när bilen lämnas")]
         public DateTime ReturnDateAndTime { get; set; } = DateTime.Now.Date;
         [Display(Name = "Pris")]
-        public double Price { get; set; }
+        public decimal Price { get; set; }
     }
 }

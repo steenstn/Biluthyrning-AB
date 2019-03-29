@@ -31,12 +31,13 @@
               </div>
               <input asp-for="@Model.Id" type="hidden" />
               <input asp-for="@Model.BookingDateAndTime" type="hidden" />
-              <input asp-for="Customer.SSN" type="hidden" />
-              <input asp-for="Customer.FirstName" type="hidden" />
-              <input asp-for="Customer.LastName" type="hidden" />
-              <input asp-for="Car.CarSize" type="hidden" />
-              <input asp-for="Car.LicensePlate" type="hidden" />
-              <input asp-for="Car.DistanceInKm" type="hidden" />
+              <input asp-for="@Model.Customer.SSN" type="hidden" />
+              <input asp-for="@Model.Customer.FirstName" type="hidden" />
+              <input asp-for="@Model.Customer.LastName" type="hidden" />
+              <input asp-for="@Model.Car.Id" type="hidden" />
+              <input asp-for="@Model.Car.CarSize" type="hidden" />
+              <input asp-for="@Model.Car.LicensePlate" type="hidden" />
+              <input asp-for="@Model.Car.DistanceInKm" type="hidden" />
               <div class="row">
                   <div class="col-5"></div>
                   <div class="form-group">

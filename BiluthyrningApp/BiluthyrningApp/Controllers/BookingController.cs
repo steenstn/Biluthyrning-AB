@@ -19,6 +19,18 @@ namespace BiluthyrningApp.Controllers
         }
         public IActionResult Create()
         {
+            var carSize = new List<SelectListItem>();
+            carSize.Add(new SelectListItem
+            {
+                Text = "Välj en",
+                Value = ""
+            
+            });
+            foreach (Carsize item in Enum.GetValues(typeof(Carsize)))
+            {
+                carSize.Add(new SelectListItem { Text = Enum.GetName(typeof(Carsize), item), Value = item.ToString()});
+            }
+            ViewBag.carSizeOne = carSize;
             return View();
         }
 
@@ -48,25 +60,28 @@ namespace BiluthyrningApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Payment([Bind("Id, Customer, Car, Mileage, BookingDateAndTime, ReturnDateAndTime")] Booking booking)
+        public async Task<IActionResult> Payment([Bind("Id, Car, Mileage, BookingDateAndTime, ReturnDateAndTime")] Booking booking)
         {
-            double baseDayRental = 100;
-            double kmPrice = 1;
-            double nrOfHours = (booking.ReturnDateAndTime - booking.BookingDateAndTime).TotalHours;            
-            double nrOfDays = nrOfHours / 24;
-
-            if (booking.Car.CarSize == "Small")
+            decimal baseDayRental = 100; // För alla bilar
+            decimal kmPrice = 1; // För alla bilar
+            decimal nrOfHours = (decimal)(booking.ReturnDateAndTime - booking.BookingDateAndTime).TotalHours; // Tar fram antal timmar bilen varit bokad
+            decimal nrOfDays = nrOfHours / 24; // Gör om antal timmar bilen varit bokad till antal dagar (med decimaler)
+            decimal basePrice = baseDayRental * nrOfDays; // Grundpris för alla bilar
+            decimal vanPrice = 1.2M; // Extrapris för typen van          
+            decimal miniBusPrice = 1.7M; // Extrapris för typen minibuss
+            decimal miniBusPriceExtraPerKm = 1.5M; // Extrapris per km för typen minibuss
+            
+            if (booking.Car.CarSize == Carsize.Small)
             {
-
-                booking.Price = (int)Math.Round(baseDayRental * nrOfDays, 0);
+                booking.Price = (decimal)Math.Round(basePrice, 0);
             }
-            else if (booking.Car.CarSize == "Van")
+            else if (booking.Car.CarSize == Carsize.Van)
             {
-                booking.Price = (int)Math.Round(baseDayRental * nrOfDays * 1.2 + kmPrice * booking.Mileage, 0);
+                booking.Price = (decimal)Math.Round((basePrice * vanPrice) + kmPrice * booking.Mileage, 0);
             }
-            else if (booking.Car.CarSize == "Minibus")
+            else if (booking.Car.CarSize == Carsize.Minibus)
             {
-                booking.Price = (int)Math.Round(baseDayRental * nrOfDays * 1.7 + kmPrice * booking.Mileage * 1.5, 0);
+                booking.Price = (decimal)Math.Round(basePrice * miniBusPrice + kmPrice * booking.Mileage * miniBusPriceExtraPerKm, 0);
             }
             booking.Car.DistanceInKm += booking.Mileage;
 
@@ -80,5 +95,6 @@ namespace BiluthyrningApp.Controllers
 
             return View();
         }
+
     }
 }

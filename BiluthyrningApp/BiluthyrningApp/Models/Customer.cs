@@ -10,6 +10,7 @@ namespace BiluthyrningApp.Models
 {
     public class Customer
     {
+        [Key]
         public int Id { get; set; }        
         [Display(Name = "Personummer*")]
         [RegularExpression(@"^(?<date>\d{6}|\d{8})[-\s]?\d{4}$", ErrorMessage = "Personnummer anges med 10 siffror (yymmddnnnn)")]

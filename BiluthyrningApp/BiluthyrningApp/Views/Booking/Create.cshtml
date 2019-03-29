@@ -13,30 +13,30 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group row">
             <div class="col-2">
-                <label asp-for="Customer.FirstName" class="col-form-label"></label>
+                <label asp-for="@Model.Customer.FirstName" class="col-form-label"></label>
             </div>
             <div class="col-5">
-                <input asp-for="Customer.FirstName" class="form-control" />
+                <input asp-for="@Model.Customer.FirstName" class="form-control" />
             </div>
-            <span asp-validation-for="Customer.FirstName" class="text-danger"></span>
+            <span asp-validation-for="@Model.Customer.FirstName" class="text-danger"></span>
         </div>
         <div class="form-group row">
             <div class="col-2">
-                <label asp-for="Customer.LastName" class="col-form-label"></label>
+                <label asp-for="@Model.Customer.LastName" class="col-form-label"></label>
             </div>
             <div class="col-5">
-                <input asp-for="Customer.LastName" class="form-control" />
+                <input asp-for="@Model.Customer.LastName" class="form-control" />
             </div>
-            <span asp-validation-for="Customer.LastName" class="text-danger"></span>
+            <span asp-validation-for="@Model.Customer.LastName" class="text-danger"></span>
         </div>
         <div class="form-group row">
             <div class="col-2">
-                <label asp-for="Customer.SSN" class="col-form-label"></label>
+                <label asp-for="@Model.Customer.SSN" class="col-form-label"></label>
             </div>
             <div class="col-5">
-                <input asp-for="Customer.SSN" class="form-control" />
+                <input asp-for="@Model.Customer.SSN" class="form-control" />
             </div>
-            <span asp-validation-for="Customer.SSN" class="text-danger"></span>
+            <span asp-validation-for="@Model.Customer.SSN" class="text-danger"></span>
         </div>
         <div class="form-group row">
             <div class="col-2">
@@ -49,34 +49,32 @@
         </div>
         <div class="form-group row">
             <div class="col-2">
-                <label asp-for="Car.CarSize" class="col-form-label"></label>
+                <label asp-for="@Model.Car.CarSize" class="col-form-label"></label>
             </div>
             <div class="col-5">
-                <select asp-for="Car.CarSize" class="form-control">
-                    <option value="Small">Liten</option>
-                    <option value="Van">Van</option>
-                    <option value="Minibus">Minibuss</option>
+                <select asp-for="@Model.Car.CarSize" asp-items="ViewBag.carSizeOne" class="form-control">
+                   
                 </select>
             </div>
-            <span asp-validation-for="Car.CarSize" class="text-danger"></span>
+            <span asp-validation-for="@Model.Car.CarSize" class="text-danger"></span>
         </div>
         <div class="form-group row">
             <div class="col-2">
-                <label asp-for="Car.LicensePlate" class="col-form-label"></label>
+                <label asp-for="@Model.Car.LicensePlate" class="col-form-label"></label>
             </div>
             <div class="col-5">
-                <input asp-for="Car.LicensePlate" class="form-control" />
+                <input asp-for="@Model.Car.LicensePlate" class="form-control" />
             </div>
-            <span asp-validation-for="Car.LicensePlate" class="text-danger"></span>
+            <span asp-validation-for="@Model.Car.LicensePlate" class="text-danger"></span>
         </div>
         <div class="form-group row">
             <div class="col-2">
-                <label asp-for="Car.DistanceInKm" class="col-form-label"></label>
+                <label asp-for="@Model.Car.DistanceInKm" class="col-form-label"></label>
             </div>
             <div class="col-5">
-                <input asp-for="Car.DistanceInKm" class="form-control" />
+                <input asp-for="@Model.Car.DistanceInKm" class="form-control" />
             </div>
-            <span asp-validation-for="Car.DistanceInKm" class="text-danger"></span>
+            <span asp-validation-for="@Model.Car.DistanceInKm" class="text-danger"></span>
         </div>
         <div class="row">
             <div class="col-5"></div>
