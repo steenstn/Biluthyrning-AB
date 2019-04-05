@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BiluthyrningApp.Migrations
 {
-    public partial class models : Migration
+    public partial class Models : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -55,7 +55,8 @@ namespace BiluthyrningApp.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CarSize = table.Column<int>(nullable: false),
                     LicensePlate = table.Column<string>(nullable: true),
-                    DistanceInKm = table.Column<decimal>(nullable: false)
+                    DistanceInKm = table.Column<decimal>(nullable: false),
+                    IsBooked = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

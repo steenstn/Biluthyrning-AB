@@ -43,6 +43,7 @@ namespace BiluthyrningApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id, Customer, Car, Mileage, BookingDateAndTime")] Booking booking)
         {
+            booking.Car.IsBooked = true;
             if (ModelState.IsValid)
             {
                 _db.Add(booking);
@@ -62,6 +63,7 @@ namespace BiluthyrningApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Payment([Bind("Id, Car, Mileage, BookingDateAndTime, ReturnDateAndTime")] Booking booking)
         {
+            booking.Car.IsBooked = false;
             decimal baseDayRental = 100; // För alla bilar
             decimal kmPrice = 1; // För alla bilar
             decimal nrOfHours = (decimal)(booking.ReturnDateAndTime - booking.BookingDateAndTime).TotalHours; // Tar fram antal timmar bilen varit bokad
@@ -96,5 +98,12 @@ namespace BiluthyrningApp.Controllers
             return View();
         }
 
+        public async Task<IActionResult> ShowAllActiveBookings()
+        {
+            List<Booking> bookings = new List<Booking>();
+            bookings = await _db.Bookings.Include(x => x.Car).Include(x => x.Customer).Where(x => x.Car.IsBooked == true).ToListAsync();
+
+            return View(bookings);
+        }
     }
 }

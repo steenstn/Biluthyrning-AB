@@ -20,6 +20,8 @@ namespace BiluthyrningApp.Models
         [Required(ErrorMessage = "Du måste ange hur många kilometer bilen har gått")]
         public decimal DistanceInKm { get; set; }
         public List<Booking> Bookings { get; set; }
+        [Display(Name = "Är bilen bokad")]
+        public bool IsBooked { get; set; } = false;
 
     }        
     public enum Carsize

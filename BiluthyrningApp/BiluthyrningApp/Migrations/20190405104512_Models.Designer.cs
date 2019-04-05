@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BiluthyrningApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190321094145_keyss")]
-    partial class keyss
+    [Migration("20190405104512_Models")]
+    partial class Models
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -57,6 +57,8 @@ namespace BiluthyrningApp.Migrations
                     b.Property<int>("CarSize");
 
                     b.Property<decimal>("DistanceInKm");
+
+                    b.Property<bool>("IsBooked");
 
                     b.Property<string>("LicensePlate");
 

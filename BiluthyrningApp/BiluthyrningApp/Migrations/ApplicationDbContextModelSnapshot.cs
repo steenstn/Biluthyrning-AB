@@ -56,6 +56,8 @@ namespace BiluthyrningApp.Migrations
 
                     b.Property<decimal>("DistanceInKm");
 
+                    b.Property<bool>("IsBooked");
+
                     b.Property<string>("LicensePlate");
 
                     b.HasKey("Id");
