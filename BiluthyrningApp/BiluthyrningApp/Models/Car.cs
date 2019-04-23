@@ -10,8 +10,8 @@ namespace BiluthyrningApp.Models
     {
         [Key]
         public int Id { get; set; }
-        [Display(Name = "Typ av bil*")]
-        [Required(ErrorMessage = "Du måste ange vilken biltyp du vill boka")]
+        [Display(Name = "Välj en bil")]
+        [Required(ErrorMessage = "Du måste ange vilken bil du vill boka")]
         public Carsize CarSize { get; set; }
         [Display(Name = "Registreringsnummer*")]
         [RegularExpression(@"^[A-Z]{3}[0-9]{3}$", ErrorMessage = "Du måste ange registeringsnummret i formatet ABC123")]

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<BiluthyrningApp.Models.Car>
+
+@{
+    ViewData["Title"] = "ShowAllCars";
+}
+
+<h1>ShowAllCars</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CarSize)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LicensePlate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DistanceInKm)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsBooked)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarSize)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LicensePlate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DistanceInKm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsBooked)
+            </td>            
+        </tr>
+}
+    </tbody>
+</table>

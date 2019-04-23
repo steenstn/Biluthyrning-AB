@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BiluthyrningApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190405104512_Models")]
-    partial class Models
+    [Migration("20190423131719_madeRepos")]
+    partial class madeRepos
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

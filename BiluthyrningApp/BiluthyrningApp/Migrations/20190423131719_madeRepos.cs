@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BiluthyrningApp.Migrations
 {
-    public partial class Models : Migration
+    public partial class madeRepos : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

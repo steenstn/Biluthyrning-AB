@@ -14,6 +14,9 @@
                 @Html.DisplayNameFor(m => m.Customer.LastName)
             </th>
             <th>
+                @Html.DisplayNameFor(m => m.Id)
+            </th>
+            <th>
                 @Html.DisplayNameFor(m => m.Car.IsBooked)
             </th>
             <th></th>
@@ -22,18 +25,21 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Car.LicensePlate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Car.IsBooked)
-                </td>
-              
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Car.IsBooked)
+            </td>
+
+        </tr>
         }
     </tbody>
 </table>

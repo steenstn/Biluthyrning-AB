@@ -1,5 +1,6 @@
 ﻿using BiluthyrningApp.Data;
 using BiluthyrningApp.Models;
+using BiluthyrningApp.Repos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,25 +12,26 @@ namespace BiluthyrningApp.Controllers
 {
     public class CustomerController : Controller
     {
-        private readonly ApplicationDbContext _db;
+        private IBookingRepo _bookingRepo;
+        private ICarRepo _carRepo;
+        private ICustomerRepo _customerRepo;
 
-        public CustomerController(ApplicationDbContext db)
+        public CustomerController(IBookingRepo bookingRepo, ICarRepo carRepo, ICustomerRepo customerRepo)
         {
-            _db = db;
+            _bookingRepo = bookingRepo;
+            _carRepo = carRepo;
+            _customerRepo = customerRepo;
         }
 
-        public async Task<IActionResult> ShowListOfCustomers()
+        public IActionResult ShowListOfCustomers()
         {
-            return View(await _db.Customers.ToListAsync());
-            //return View(await _db.Bookings.Include(x => x.Customer).Include(x => x.Car).ToListAsync());
+            return View(_customerRepo.ShowListOfCustomers());
+          
         }
-
-        public async Task<IActionResult> ShowBookings(int? Id)
-        {
-            List<Booking> bookings = new List<Booking>();
-            bookings = await _db.Bookings.Include(x => x.Car).Include(x => x.Customer).Where(x => x.Id == Id).ToListAsync();
-            
-            return View(bookings);
+        
+        public IActionResult ShowBookings(int? Id)
+        {            
+            return View(_customerRepo.ShowBookings(Id));
         }
     }
 }

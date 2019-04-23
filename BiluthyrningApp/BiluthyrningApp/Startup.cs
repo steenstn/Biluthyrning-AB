@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using BiluthyrningApp.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using BiluthyrningApp.Repos;
 
 namespace BiluthyrningApp
 {
@@ -41,7 +42,9 @@ namespace BiluthyrningApp
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-
+            services.AddTransient<IBookingRepo, BookingRepo>();
+            services.AddTransient<ICustomerRepo, CustomerRepo>();
+            services.AddTransient<ICarRepo, CarRepo>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

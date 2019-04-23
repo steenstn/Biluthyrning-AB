@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BiluthyrningApp.Data;
 using BiluthyrningApp.Models;
+using BiluthyrningApp.Repos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,42 +13,49 @@ namespace BiluthyrningApp.Controllers
 {
     public class BookingController : Controller
     {
-        private readonly ApplicationDbContext _db;
-        public BookingController(ApplicationDbContext db)
+        private IBookingRepo _bookingRepo;
+        private ICarRepo _carRepo;
+        private ICustomerRepo _customerRepo;
+
+        public BookingController(IBookingRepo bookingRepo, ICarRepo carRepo, ICustomerRepo customerRepo)
         {
-            _db = db;
+            _bookingRepo = bookingRepo;
+            _carRepo = carRepo;
+            _customerRepo = customerRepo;
         }
+
         public IActionResult Create()
         {
-            var carSize = new List<SelectListItem>();
-            carSize.Add(new SelectListItem
+            var cars = new List<SelectListItem>();
+            cars.Add(new SelectListItem
             {
                 Text = "Välj en",
                 Value = ""
-            
             });
-            foreach (Carsize item in Enum.GetValues(typeof(Carsize)))
+
+            var carsInDatabase = _carRepo.AllCarsNotBooked();
+            foreach (var item in carsInDatabase)
             {
-                carSize.Add(new SelectListItem { Text = Enum.GetName(typeof(Carsize), item), Value = item.ToString()});
+                cars.Add(new SelectListItem { Text = item.LicensePlate, Value = item.Id.ToString()});
             }
-            ViewBag.carSizeOne = carSize;
+            ViewBag.carSizeOne = cars;
             return View();
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _db.Bookings.Include(x => x.Customer).Include(x => x.Car).ToListAsync());
+            var bookings = _bookingRepo.GetBookings();
+            return View(bookings);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id, Customer, Car, Mileage, BookingDateAndTime")] Booking booking)
+        public IActionResult Create([Bind("Id, Customer, Car, Mileage, BookingDateAndTime")] Booking booking)
         {
             booking.Car.IsBooked = true;
             if (ModelState.IsValid)
             {
-                _db.Add(booking);
-                await _db.SaveChangesAsync();
+                _bookingRepo.Add(booking);
                 return View("~/Views/Home/Index.cshtml");
             }
             
@@ -55,13 +63,13 @@ namespace BiluthyrningApp.Controllers
         }
         public IActionResult EndBooking(int id)
         {
-            var booking = _db.Bookings.Include(x => x.Car).Include(x => x.Customer).Single(x => x.Id == id);
+            var booking = _bookingRepo.EndBooking(id);
             return View(booking);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Payment([Bind("Id, Car, Mileage, BookingDateAndTime, ReturnDateAndTime")] Booking booking)
+        public IActionResult Payment([Bind("Id, Car, Mileage, BookingDateAndTime, ReturnDateAndTime")] Booking booking)
         {
             booking.Car.IsBooked = false;
             decimal baseDayRental = 100; // För alla bilar
@@ -89,21 +97,15 @@ namespace BiluthyrningApp.Controllers
 
             if (ModelState.IsValid)
             {
-                _db.Update(booking);
-                await _db.SaveChangesAsync();
-                var bookingPrice = _db.Bookings.Include(x => x.Car).Include(x => x.Customer).Single(x => x.Id == booking.Id);
-                return View(bookingPrice);
+                return View(_bookingRepo.Update(booking));
             }
 
             return View();
         }
 
-        public async Task<IActionResult> ShowAllActiveBookings()
+        public IActionResult ShowAllActiveBookings()
         {
-            List<Booking> bookings = new List<Booking>();
-            bookings = await _db.Bookings.Include(x => x.Car).Include(x => x.Customer).Where(x => x.Car.IsBooked == true).ToListAsync();
-
-            return View(bookings);
+            return View(_bookingRepo.ShowAllActiveBookings());
         }
     }
 }
