@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace BiluthyrningApp.Controllers
 {
     public class CarController : Controller
-    {
+    {        
         private IBookingRepo _bookingRepo;
         private ICarRepo _carRepo;
         private ICustomerRepo _customerRepo;
@@ -51,6 +51,7 @@ namespace BiluthyrningApp.Controllers
             bool isCarNew = _carRepo.CheckIfCarIsOnDatabase(car);
             if (isCarNew)
             {
+                ViewBag.error = "Bilen med detta reg-nummret finns redan";
                 return View("~/Views/Home/Index.cshtml");
             }
             if (ModelState.IsValid)
