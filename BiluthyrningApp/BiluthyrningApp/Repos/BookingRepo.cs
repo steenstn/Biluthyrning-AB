@@ -27,8 +27,21 @@ namespace BiluthyrningApp.Repos
 
         public void Add(Booking booking)
         {
+            List<Car> allCars = new List<Car>();
+            allCars = _db.Cars.ToList();
+            foreach (var item in allCars)
+            {
+                if (item.LicensePlate.ToString() == booking.Car.LicensePlate.ToString())
+                {
+                    Car car = item;
+                    booking.Car = car;
+                   
+                }
+            }
+
             _db.Add(booking);
             _db.SaveChanges();
+
         }
 
         public Booking EndBooking(int id)

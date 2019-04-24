@@ -38,7 +38,11 @@ namespace BiluthyrningApp.Repos
             List<Car> allCars = _db.Cars.ToList();
             foreach (var item in allCars)
             {
-                if (item.LicensePlate.ToUpper() == car.LicensePlate.ToUpper())
+                if (item.LicensePlate == null)
+                {
+                    return false;
+
+                } else if (item.LicensePlate.ToUpper() == car.LicensePlate.ToUpper())
                 {
                     return true;
                 }

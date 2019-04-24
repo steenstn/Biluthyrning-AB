@@ -32,11 +32,10 @@ namespace BiluthyrningApp.Controllers
                 Text = "Välj en",
                 Value = ""
             });
-
-            var carsInDatabase = _carRepo.AllCarsNotBooked();
+            List<Car> carsInDatabase = _carRepo.AllCarsNotBooked();
             foreach (var item in carsInDatabase)
             {
-                cars.Add(new SelectListItem { Text = item.LicensePlate, Value = item.Id.ToString()});
+                cars.Add(new SelectListItem { Text = item.LicensePlate, Value = item.LicensePlate});
             }
             ViewBag.carSizeOne = cars;
             return View();
@@ -50,15 +49,30 @@ namespace BiluthyrningApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id, Customer, Car, Mileage, BookingDateAndTime")] Booking booking)
+        public IActionResult Create(/*[Bind("Id, Customer")]*/ Booking booking)
         {
+            List<Car> allCars = _carRepo.AllCars();
+            foreach (var item in allCars)
+            {
+                if (item.LicensePlate == booking.Car.LicensePlate)
+                {
+                    booking.Car = item;
+                }
+            }
+            if (booking.Car.LicensePlate == null)
+            {
+                ViewBag.error = "Vänligen välj en bil, finns ingen måste du lägga till den först";
+                return View();
+            }
+            
             booking.Car.IsBooked = true;
             if (ModelState.IsValid)
-            {
+            {                
+                ViewBag.ok = "Bokningen skapad";
                 _bookingRepo.Add(booking);
                 return View("~/Views/Home/Index.cshtml");
             }
-            
+            ViewBag.error = "Något gick fel, vänligen försök igen";
             return View();
         }
         public IActionResult EndBooking(int id)

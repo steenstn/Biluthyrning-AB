@@ -57,6 +57,7 @@ namespace BiluthyrningApp.Controllers
             if (ModelState.IsValid)
             {
                 _carRepo.Add(car);
+                ViewBag.ok = $"Bilen med reg-nummer {car.LicensePlate} är tillagd";
                 return View("~/Views/Home/Index.cshtml");
             }
 
