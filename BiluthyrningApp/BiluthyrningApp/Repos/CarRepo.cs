@@ -27,5 +27,25 @@ namespace BiluthyrningApp.Repos
             return _db.Cars.Where(x => x.IsBooked == false).ToList();
         }
 
+        public void Add(Car car)
+        {
+            _db.Cars.Add(car);
+            _db.SaveChanges();
+        }
+
+        public bool CheckIfCarIsOnDatabase(Car car)
+        {
+            List<Car> allCars = _db.Cars.ToList();
+            foreach (var item in allCars)
+            {
+                if (item.LicensePlate.ToUpper() == car.LicensePlate.ToUpper())
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
     }
 }

@@ -10,5 +10,7 @@ namespace BiluthyrningApp.Repos
     {
         List<Car> AllCars();
         List<Car> AllCarsNotBooked();
+        void Add(Car car);
+        bool CheckIfCarIsOnDatabase(Car car);
     }
 }
