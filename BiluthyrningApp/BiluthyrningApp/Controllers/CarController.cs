@@ -63,5 +63,26 @@ namespace BiluthyrningApp.Controllers
 
             return View();
         }
+
+        public IActionResult ServiceCar(int id)
+        {
+            _carRepo.ServiceCar(id);
+            ViewBag.ok = $"Bilen är nu servad";
+            return View("~/Views/Home/Index.cshtml");
+        }
+
+        public IActionResult CleanCar(int id)
+        {
+            _carRepo.CleanCar(id);
+            ViewBag.ok = $"Bilen är nu tvättad";
+            return View("~/Views/Home/Index.cshtml");
+        }
+
+         public IActionResult RemoveCar(int id)
+        {
+            _carRepo.RemoveCar(id);
+            ViewBag.ok = $"Bilen är nu bortagen";
+            return View("~/Views/Home/Index.cshtml");
+        }
     }
 }

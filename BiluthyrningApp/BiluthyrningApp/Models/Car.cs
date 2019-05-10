@@ -22,6 +22,14 @@ namespace BiluthyrningApp.Models
         public List<Booking> Bookings { get; set; }
         [Display(Name = "Är bilen bokad")]
         public bool IsBooked { get; set; } = false;
+        [Display(Name = "Behöver bilen tvättas?")]
+        public bool NeedsCleaning { get; set; }
+        [Display(Name = "Bokad antal gånger")]
+        public int TimeBooked { get; set; }
+        [Display(Name = "Behövs service?")]
+        public bool NeedService { get; set; }
+        [Display(Name = "Bil borttagen")]
+        public bool CarRemoved { get; set; }
 
     }        
     public enum Carsize

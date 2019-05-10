@@ -34,11 +34,11 @@ namespace BiluthyrningApp.Repos
                 if (item.LicensePlate.ToString() == booking.Car.LicensePlate.ToString())
                 {
                     Car car = item;
+                    car.TimeBooked++;
                     booking.Car = car;
-                   
                 }
             }
-
+            
             _db.Add(booking);
             _db.SaveChanges();
 
@@ -51,6 +51,12 @@ namespace BiluthyrningApp.Repos
 
         public Booking Update(Booking booking)
         {
+            booking.Car.NeedsCleaning = true;
+            // Bilen ska på service var 3:e bokning
+            if (booking.Car.TimeBooked % 3 == 0)
+            {
+                booking.Car.NeedService = true;
+            }
             _db.Update(booking);            
             _db.SaveChanges();
             var bookingPrice = _db.Bookings.Include(x => x.Car).Include(x => x.Customer).Single(x => x.Id == booking.Id);

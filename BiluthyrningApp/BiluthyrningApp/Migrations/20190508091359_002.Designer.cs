@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BiluthyrningApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190423131719_madeRepos")]
-    partial class madeRepos
+    [Migration("20190508091359_002")]
+    partial class _002
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -61,6 +61,10 @@ namespace BiluthyrningApp.Migrations
                     b.Property<bool>("IsBooked");
 
                     b.Property<string>("LicensePlate");
+
+                    b.Property<bool>("NeedService");
+
+                    b.Property<int>("TimeBooked");
 
                     b.HasKey("Id");
 

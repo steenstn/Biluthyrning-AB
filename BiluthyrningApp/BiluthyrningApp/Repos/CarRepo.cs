@@ -24,7 +24,7 @@ namespace BiluthyrningApp.Repos
         }
         public List<Car> AllCarsNotBooked()
         {
-            return _db.Cars.Where(x => x.IsBooked == false).ToList();
+            return _db.Cars.Where(x => x.IsBooked == false && x.CarRemoved == false).ToList();
         }
 
         public void Add(Car car)
@@ -50,6 +50,30 @@ namespace BiluthyrningApp.Repos
 
             return false;
         }
+
+        public void ServiceCar(int id)
+        {
+            Car car = _db.Cars.Single(x => x.Id == id);
+            car.NeedService = false;
+            _db.Update(car);
+            _db.SaveChanges();
+        }
+        public void CleanCar(int id)
+        {
+            Car car = _db.Cars.Single(x => x.Id == id);
+            car.NeedsCleaning = false;
+            _db.Update(car);
+            _db.SaveChanges();
+        }
+        public void RemoveCar(int id)
+        {
+            Car car = _db.Cars.Single(x => x.Id == id);
+            car.CarRemoved = true;    
+            _db.Update(car);
+            _db.SaveChanges();
+        }
+
+
 
     }
 }

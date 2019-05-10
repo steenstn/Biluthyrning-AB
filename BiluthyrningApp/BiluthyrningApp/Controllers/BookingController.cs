@@ -49,7 +49,7 @@ namespace BiluthyrningApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(/*[Bind("Id, Customer")]*/ Booking booking)
+        public IActionResult Create(Booking booking)
         {
             List<Car> allCars = _carRepo.AllCars();
             foreach (var item in allCars)
@@ -83,9 +83,9 @@ namespace BiluthyrningApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Payment([Bind("Id, Car, Mileage, BookingDateAndTime, ReturnDateAndTime")] Booking booking)
+        public IActionResult Payment([Bind("Id, Customer, Car, Mileage, BookingDateAndTime, ReturnDateAndTime")] Booking booking)
         {
-            booking.Car.IsBooked = false;
+            booking.Car.IsBooked = false;            
             decimal baseDayRental = 100; // För alla bilar
             decimal kmPrice = 1; // För alla bilar
             decimal nrOfHours = (decimal)(booking.ReturnDateAndTime - booking.BookingDateAndTime).TotalHours; // Tar fram antal timmar bilen varit bokad
@@ -113,7 +113,7 @@ namespace BiluthyrningApp.Controllers
             {
                 return View(_bookingRepo.Update(booking));
             }
-
+                
             return View();
         }
 

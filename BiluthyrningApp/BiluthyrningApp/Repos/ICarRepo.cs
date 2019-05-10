@@ -12,5 +12,8 @@ namespace BiluthyrningApp.Repos
         List<Car> AllCarsNotBooked();
         void Add(Car car);
         bool CheckIfCarIsOnDatabase(Car car);
+        void ServiceCar(int id);
+        void CleanCar(int id);
+        void RemoveCar(int id);
     }
 }

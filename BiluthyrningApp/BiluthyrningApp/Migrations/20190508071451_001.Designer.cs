@@ -4,14 +4,16 @@ using BiluthyrningApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BiluthyrningApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190508071451_001")]
+    partial class _001
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,8 +54,6 @@ namespace BiluthyrningApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("CarRemoved");
-
                     b.Property<int>("CarSize");
 
                     b.Property<decimal>("DistanceInKm");
@@ -61,12 +61,6 @@ namespace BiluthyrningApp.Migrations
                     b.Property<bool>("IsBooked");
 
                     b.Property<string>("LicensePlate");
-
-                    b.Property<bool>("NeedService");
-
-                    b.Property<bool>("NeedsCleaning");
-
-                    b.Property<int>("TimeBooked");
 
                     b.HasKey("Id");
 

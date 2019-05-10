@@ -23,6 +23,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.IsBooked)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeBooked)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -41,9 +44,43 @@
             <td>
                 @Html.DisplayFor(modelItem => item.DistanceInKm)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsBooked)
-            </td>            
+            @if (item.CarRemoved == false)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsBooked)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeBooked)
+                </td>
+                @if (item.NeedService == true)
+                {
+                    <td>
+                        <a asp-action="ServiceCar" asp-route-id="@item.Id">Skicka på service</a>
+                    </td>
+                }
+                @if (item.NeedsCleaning == true)
+                {
+                    <td>
+                        <a asp-action="CleanCar" asp-route-id="@item.Id">Tvätta bil</a>
+                    </td>
+                }
+                @if (item.DistanceInKm > 2000)
+                {
+                    <td>
+                        <a asp-action="RemoveCar" asp-route-id="@item.Id">Plocka bort</a>
+                    </td>
+                }
+            }
+            else
+            {
+                <td>
+                    <p2>Bil bortagen</p2>
+                </td>
+                <td>
+                    <p2>Bil bortagen</p2>
+                </td>
+            }
+
         </tr>
 }
     </tbody>
