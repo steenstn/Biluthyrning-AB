@@ -61,6 +61,11 @@ body {
 }
 
 .sameSizeButton {
-    height: 200px;
-    width: 400px;
+    height: 100px;
+    width: 300px;
+}
+
+.notSameSizeButton {
+    height: 100px;
+    width: 600px;
 }

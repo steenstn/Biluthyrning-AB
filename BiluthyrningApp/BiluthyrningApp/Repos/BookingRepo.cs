@@ -38,6 +38,17 @@ namespace BiluthyrningApp.Repos
                     booking.Car = car;
                 }
             }
+
+            List<Customer> allCustomer = new List<Customer>();
+            allCustomer = _db.Customers.ToList();
+            foreach (var item in allCustomer)
+            {
+                if (item.SSN == booking.Customer.SSN)
+                {
+                    Customer customer = item;
+                    booking.Customer = customer;
+                }
+            }
             
             _db.Add(booking);
             _db.SaveChanges();

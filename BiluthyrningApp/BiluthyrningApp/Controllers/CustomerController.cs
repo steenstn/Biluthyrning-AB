@@ -33,5 +33,25 @@ namespace BiluthyrningApp.Controllers
         {            
             return View(_customerRepo.ShowBookings(Id));
         }
+
+        public IActionResult CreateNewCustomer()
+        {           
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create([Bind("SSN, FirstName, LastName")] Customer customer)
+        {
+            
+            if (ModelState.IsValid)
+            {
+                _customerRepo.Add(customer);
+                ViewBag.ok = $"Kunden {customer.FirstName} är tillagd";
+                return View("~/Views/Home/Index.cshtml");
+            }
+
+            return View();
+        }
     }
 }

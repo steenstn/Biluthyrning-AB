@@ -10,5 +10,7 @@ namespace BiluthyrningApp.Repos
     {
         List<Customer> ShowListOfCustomers();
         List<Booking> ShowBookings(int? id);
+        void Add(Customer customer);
+        List<Customer> AllCustomers();
     }
 }

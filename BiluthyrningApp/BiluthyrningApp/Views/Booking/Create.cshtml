@@ -29,33 +29,17 @@
     <div class="border border-dark rounded">
         <br />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group row">
-            <div class="col-2">
-                <label asp-for="@Model.Customer.FirstName" class="col-form-label"></label>
-            </div>
-            <div class="col-5">
-                <input asp-for="@Model.Customer.FirstName" class="form-control" />
-            </div>
-            <span asp-validation-for="@Model.Customer.FirstName" class="text-danger"></span>
-        </div>
-        <div class="form-group row">
-            <div class="col-2">
-                <label asp-for="@Model.Customer.LastName" class="col-form-label"></label>
-            </div>
-            <div class="col-5">
-                <input asp-for="@Model.Customer.LastName" class="form-control" />
-            </div>
-            <span asp-validation-for="@Model.Customer.LastName" class="text-danger"></span>
-        </div>
+
         <div class="form-group row">
             <div class="col-2">
                 <label asp-for="@Model.Customer.SSN" class="col-form-label"></label>
             </div>
             <div class="col-5">
-                <input asp-for="@Model.Customer.SSN" class="form-control" />
+                <select asp-for="@Model.Customer.SSN" asp-items="ViewBag.customer" class="form-control"></select>
             </div>
             <span asp-validation-for="@Model.Customer.SSN" class="text-danger"></span>
         </div>
+
         <div class="form-group row">
             <div class="col-2">
                 <label asp-for="@Model.BookingDateAndTime" class="col-form-label"></label>
@@ -65,16 +49,7 @@
             </div>
             <span asp-validation-for="@Model.BookingDateAndTime" class="text-danger"></span>
         </div>
-        @*<div class="form-group row">
-                <div class="col-2">
-                    <label asp-for="@Model.Car.CarSize" class="col-form-label"></label>
-                </div>
-                <div class="col-5">
-                    <select asp-for="@Model.Car.CarSize" asp-items="ViewBag.carSizeOne" class="form-control"></select>
-                </div>
 
-                <span asp-validation-for="@Model.Car.CarSize" class="text-danger"></span>
-            </div>*@
         <div class="form-group row">
             <div class="col-2">
                 <label asp-for="@Model.Car.LicensePlate" class="col-form-label"></label>
@@ -84,15 +59,7 @@
             </div>
             <span asp-validation-for="@Model.Car.LicensePlate" class="text-danger"></span>
         </div>
-        @*<div class="form-group row">
-                <div class="col-2">
-                    <label asp-for="@Model.Car.DistanceInKm" class="col-form-label"></label>
-                </div>
-                <div class="col-5">
-                    <input asp-for="@Model.Car.DistanceInKm" class="form-control" />
-                </div>
-                <span asp-validation-for="@Model.Car.DistanceInKm" class="text-danger"></span>
-            </div>*@
+
         <div class="row">
             <div class="col-5"></div>
             <div class="form-group">

@@ -37,6 +37,19 @@ namespace BiluthyrningApp.Controllers
             {
                 cars.Add(new SelectListItem { Text = item.LicensePlate, Value = item.LicensePlate});
             }
+
+            var customer = new List<SelectListItem>();
+            customer.Add(new SelectListItem
+            {
+                Text = "Välj en",
+                Value = ""
+            });
+            List<Customer> customersInDatabase = _customerRepo.AllCustomers();
+            foreach (var item in customersInDatabase)
+            {
+                customer.Add(new SelectListItem { Text = item.SSN, Value = item.SSN });
+            }
+            ViewBag.customer = customer;
             ViewBag.carSizeOne = cars;
             return View();
         }
@@ -64,7 +77,16 @@ namespace BiluthyrningApp.Controllers
                 ViewBag.error = "Vänligen välj en bil, finns ingen måste du lägga till den först";
                 return View();
             }
-            
+
+            List<Customer> allCustomers = _customerRepo.AllCustomers();
+            foreach (var item in allCustomers)
+            {
+                if (item.SSN == booking.Customer.SSN)
+                {
+                    booking.Customer = item;
+                }
+            }
+
             booking.Car.IsBooked = true;
             if (ModelState.IsValid)
             {                
