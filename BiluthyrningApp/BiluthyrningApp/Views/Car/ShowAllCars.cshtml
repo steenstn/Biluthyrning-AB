@@ -4,7 +4,7 @@
     ViewData["Title"] = "ShowAllCars";
 }
 
-<h1>ShowAllCars</h1>
+<h1>Alla bilar</h1>
 <table class="table">
     <thead>
         <tr>
@@ -70,6 +70,11 @@
                         <a asp-action="RemoveCar" asp-route-id="@item.Id">Plocka bort</a>
                     </td>
                 }
+                <td>
+                    <div class="btn btn-danger">
+                        <a asp-action="RemoveCar" asp-route-id="@item.Id">Ta bort bil</a>
+                    </div>
+                </td>
             }
             else
             {
