@@ -61,7 +61,7 @@ namespace BiluthyrningApp.Controllers
                 return View("~/Views/Home/Index.cshtml");
             }
 
-            return View();
+            return View("~/Views/Car/CreateNewCar.cshtml");
         }
 
         public IActionResult ServiceCar(int id)

@@ -72,6 +72,7 @@ namespace BiluthyrningApp.Repos
             }
             Logs logs = new Logs();
             logs.Log = $"{booking.Customer.FirstName} lämnade tillbaka bil {booking.Car.LicensePlate}";
+            booking.Customer = _db.Customers.Where(x => x.SSN == booking.Customer.SSN).SingleOrDefault();
             _db.Add(logs);
             _db.Update(booking);            
             _db.SaveChanges();

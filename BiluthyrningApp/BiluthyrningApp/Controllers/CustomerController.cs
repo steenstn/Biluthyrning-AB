@@ -43,7 +43,15 @@ namespace BiluthyrningApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("SSN, FirstName, LastName")] Customer customer)
         {
-            
+            foreach (var item in _customerRepo.AllCustomers())
+            {
+                if (item.SSN == customer.SSN)
+                {
+                    ViewBag.error = $"Kunden {customer.SSN} finns redan i databasen";
+                    return View("~/Views/Customer/CreateNewCustomer.cshtml");
+
+                }
+            }
             if (ModelState.IsValid)
             {
                 _customerRepo.Add(customer);
@@ -51,7 +59,8 @@ namespace BiluthyrningApp.Controllers
                 return View("~/Views/Home/Index.cshtml");
             }
 
-            return View();
+            return View("~/Views/Customer/CreateNewCustomer.cshtml");
+                     
         }
     }
 }

@@ -31,6 +31,7 @@ namespace BiluthyrningApp.Repos
 
         public void Add(Customer customer)
         {
+            
             _db.Customers.Add(customer);
             _db.SaveChanges();
         }
