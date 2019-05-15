@@ -61,9 +61,14 @@
                 <br />
                 <br />
 
-                <a class="btn btn-success text-white notSameSizeButton" asp-controller="Booking" asp-action="ShowAllActiveBookings">
+                <a class="btn btn-success text-white sameSizeButton" asp-controller="Booking" asp-action="ShowAllActiveBookings">
                     <i class="fas fa-clipboard-list fa-2x"></i>
                     <h4>Visa aktiva bokningar</h4>
+                </a>
+
+                <a class="btn btn-success text-white sameSizeButton" asp-controller="Logs" asp-action="ShowAllLogs">
+                    <i class="fas fa-clipboard-list fa-2x"></i>
+                    <h4>Visa loggar</h4>
                 </a>
             </div>
         </div>

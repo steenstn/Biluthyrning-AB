@@ -45,6 +45,8 @@ namespace BiluthyrningApp
             services.AddTransient<IBookingRepo, BookingRepo>();
             services.AddTransient<ICustomerRepo, CustomerRepo>();
             services.AddTransient<ICarRepo, CarRepo>();
+            services.AddTransient<ILogsRepo, LogsRepo>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

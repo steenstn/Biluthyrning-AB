@@ -49,7 +49,9 @@ namespace BiluthyrningApp.Repos
                     booking.Customer = customer;
                 }
             }
-            
+            Logs logs = new Logs();
+            logs.Log = $"{booking.Customer.FirstName} hyrde bil {booking.Car.LicensePlate}";
+            _db.Add(logs);
             _db.Add(booking);
             _db.SaveChanges();
 
@@ -68,6 +70,9 @@ namespace BiluthyrningApp.Repos
             {
                 booking.Car.NeedService = true;
             }
+            Logs logs = new Logs();
+            logs.Log = $"{booking.Customer.FirstName} lämnade tillbaka bil {booking.Car.LicensePlate}";
+            _db.Add(logs);
             _db.Update(booking);            
             _db.SaveChanges();
             var bookingPrice = _db.Bookings.Include(x => x.Car).Include(x => x.Customer).Single(x => x.Id == booking.Id);

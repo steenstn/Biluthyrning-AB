@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BiluthyrningApp.Migrations
 {
-    public partial class _001 : Migration
+    public partial class firstBuild : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -56,7 +56,11 @@ namespace BiluthyrningApp.Migrations
                     CarSize = table.Column<int>(nullable: false),
                     LicensePlate = table.Column<string>(nullable: true),
                     DistanceInKm = table.Column<decimal>(nullable: false),
-                    IsBooked = table.Column<bool>(nullable: false)
+                    IsBooked = table.Column<bool>(nullable: false),
+                    NeedsCleaning = table.Column<bool>(nullable: false),
+                    TimeBooked = table.Column<int>(nullable: false),
+                    NeedService = table.Column<bool>(nullable: false),
+                    CarRemoved = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -76,6 +80,19 @@ namespace BiluthyrningApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Customers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Logs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Log = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Logs", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -192,6 +209,7 @@ namespace BiluthyrningApp.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CustomerId = table.Column<int>(nullable: true),
                     CarId = table.Column<int>(nullable: true),
+                    LogsId = table.Column<int>(nullable: true),
                     Mileage = table.Column<decimal>(nullable: false),
                     BookingDateAndTime = table.Column<DateTime>(nullable: false),
                     ReturnDateAndTime = table.Column<DateTime>(nullable: false),
@@ -210,6 +228,12 @@ namespace BiluthyrningApp.Migrations
                         name: "FK_Bookings_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Bookings_Logs_LogsId",
+                        column: x => x.LogsId,
+                        principalTable: "Logs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -262,6 +286,11 @@ namespace BiluthyrningApp.Migrations
                 name: "IX_Bookings_CustomerId",
                 table: "Bookings",
                 column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bookings_LogsId",
+                table: "Bookings",
+                column: "LogsId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -295,6 +324,9 @@ namespace BiluthyrningApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "Customers");
+
+            migrationBuilder.DropTable(
+                name: "Logs");
         }
     }
 }

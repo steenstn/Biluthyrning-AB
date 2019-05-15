@@ -12,6 +12,7 @@ namespace BiluthyrningApp.Models
         public int Id { get; set; }
         public Customer Customer { get; set; }
         public Car Car { get; set; }
+        public Logs Logs { get; set; }
         [RegularExpression(@"^[+]?\d+([.]\d+)?$", ErrorMessage = "Du måste ange hur långt kuden har kört (ken ej vara negativt)")]
         [Display(Name = "Antal körda kilometer*")]
         public decimal Mileage { get; set; }

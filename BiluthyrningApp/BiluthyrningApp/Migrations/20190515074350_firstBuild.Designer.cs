@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BiluthyrningApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190508091359_002")]
-    partial class _002
+    [Migration("20190515074350_firstBuild")]
+    partial class firstBuild
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,6 +33,8 @@ namespace BiluthyrningApp.Migrations
 
                     b.Property<int?>("CustomerId");
 
+                    b.Property<int?>("LogsId");
+
                     b.Property<decimal>("Mileage");
 
                     b.Property<decimal>("Price");
@@ -45,6 +47,8 @@ namespace BiluthyrningApp.Migrations
 
                     b.HasIndex("CustomerId");
 
+                    b.HasIndex("LogsId");
+
                     b.ToTable("Bookings");
                 });
 
@@ -53,6 +57,8 @@ namespace BiluthyrningApp.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("CarRemoved");
 
                     b.Property<int>("CarSize");
 
@@ -63,6 +69,8 @@ namespace BiluthyrningApp.Migrations
                     b.Property<string>("LicensePlate");
 
                     b.Property<bool>("NeedService");
+
+                    b.Property<bool>("NeedsCleaning");
 
                     b.Property<int>("TimeBooked");
 
@@ -87,6 +95,19 @@ namespace BiluthyrningApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("BiluthyrningApp.Models.Logs", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Log");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Logs");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -263,6 +284,10 @@ namespace BiluthyrningApp.Migrations
                     b.HasOne("BiluthyrningApp.Models.Customer", "Customer")
                         .WithMany("Bookings")
                         .HasForeignKey("CustomerId");
+
+                    b.HasOne("BiluthyrningApp.Models.Logs", "Logs")
+                        .WithMany()
+                        .HasForeignKey("LogsId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

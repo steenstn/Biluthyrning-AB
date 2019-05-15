@@ -31,6 +31,8 @@ namespace BiluthyrningApp.Migrations
 
                     b.Property<int?>("CustomerId");
 
+                    b.Property<int?>("LogsId");
+
                     b.Property<decimal>("Mileage");
 
                     b.Property<decimal>("Price");
@@ -42,6 +44,8 @@ namespace BiluthyrningApp.Migrations
                     b.HasIndex("CarId");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("LogsId");
 
                     b.ToTable("Bookings");
                 });
@@ -89,6 +93,19 @@ namespace BiluthyrningApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("BiluthyrningApp.Models.Logs", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Log");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Logs");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -265,6 +282,10 @@ namespace BiluthyrningApp.Migrations
                     b.HasOne("BiluthyrningApp.Models.Customer", "Customer")
                         .WithMany("Bookings")
                         .HasForeignKey("CustomerId");
+
+                    b.HasOne("BiluthyrningApp.Models.Logs", "Logs")
+                        .WithMany()
+                        .HasForeignKey("LogsId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -55,13 +55,20 @@ namespace BiluthyrningApp.Repos
         {
             Car car = _db.Cars.Single(x => x.Id == id);
             car.NeedService = false;
+            Logs logs = new Logs();
+            logs.Log = $"{car.LicensePlate} skickades på service";
+            _db.Add(logs);
             _db.Update(car);
             _db.SaveChanges();
         }
         public void CleanCar(int id)
         {
+            
             Car car = _db.Cars.Single(x => x.Id == id);
             car.NeedsCleaning = false;
+            Logs logs = new Logs();
+            logs.Log = $"{car.LicensePlate} städades";
+            _db.Add(logs);
             _db.Update(car);
             _db.SaveChanges();
         }
