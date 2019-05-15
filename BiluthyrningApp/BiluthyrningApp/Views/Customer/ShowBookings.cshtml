@@ -8,13 +8,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(m => m.Customer.FirstName)
-            </th>
-            <th>
                 @Html.DisplayNameFor(m => m.Customer.LastName)
             </th>
             <th>
+                @Html.DisplayNameFor(m => m.Customer.SSN)
+            </th>
+            <th>
                 @Html.DisplayNameFor(m => m.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Car.LicensePlate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Price)
             </th>
             <th>
                 @Html.DisplayNameFor(m => m.Car.IsBooked)
@@ -27,13 +33,19 @@
         {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Customer.FirstName)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Customer.LastName)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Customer.SSN)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Car.LicensePlate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Car.IsBooked)

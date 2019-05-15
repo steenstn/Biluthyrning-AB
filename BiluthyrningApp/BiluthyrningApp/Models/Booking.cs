@@ -24,5 +24,6 @@ namespace BiluthyrningApp.Models
         public DateTime ReturnDateAndTime { get; set; } = DateTime.Now.Date;
         [Display(Name = "Pris")]
         public decimal Price { get; set; }
+        public bool IsBookingActive { get; set; } 
     }
 }

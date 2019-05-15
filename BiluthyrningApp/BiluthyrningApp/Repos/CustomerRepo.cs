@@ -26,7 +26,9 @@ namespace BiluthyrningApp.Repos
 
         public List<Booking> ShowBookings(int? Id)
         {
-            return _db.Bookings.Include(x => x.Car).Include(x => x.Customer).Where(x => x.Id == Id).ToList();
+      
+            return _db.Bookings.Include(x => x.Car).Include(x => x.Customer).Where(x => x.Customer.Id == Id).ToList();
+         
         }
 
         public void Add(Customer customer)

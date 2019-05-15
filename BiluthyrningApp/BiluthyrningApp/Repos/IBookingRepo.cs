@@ -8,7 +8,7 @@ namespace BiluthyrningApp.Repos
 {
     public interface IBookingRepo
     {
-        List<Booking> GetBookings();
+        List<Booking> GetActiveBookings();
         void Add(Booking booking);
         Booking EndBooking(int id);
         Booking Update(Booking booking);

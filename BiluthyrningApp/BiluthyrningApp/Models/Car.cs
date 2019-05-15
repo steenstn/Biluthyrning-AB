@@ -13,10 +13,10 @@ namespace BiluthyrningApp.Models
         [Display(Name = "Välj en bil")]
         [Required(ErrorMessage = "Du måste ange vilken bil du vill boka")]
         public Carsize CarSize { get; set; }
-        [Display(Name = "Registreringsnummer*")]
+        [Display(Name = "Registreringsnummer")]
         [RegularExpression(@"^[A-Z]{3}[0-9]{3}$", ErrorMessage = "Du måste ange registeringsnummret i formatet ABC123")]
         public string LicensePlate { get; set; }
-        [Display(Name = "Antal km körda*")]
+        [Display(Name = "Antal km körda")]
         [Required(ErrorMessage = "Du måste ange hur många kilometer bilen har gått")]
         public decimal DistanceInKm { get; set; }
         public List<Booking> Bookings { get; set; }

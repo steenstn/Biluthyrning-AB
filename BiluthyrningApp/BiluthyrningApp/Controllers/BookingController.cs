@@ -56,7 +56,7 @@ namespace BiluthyrningApp.Controllers
 
         public IActionResult Index()
         {
-            var bookings = _bookingRepo.GetBookings();
+            var bookings = _bookingRepo.GetActiveBookings();
             return View(bookings);
         }
 

@@ -12,7 +12,7 @@ namespace BiluthyrningApp.Models
     {
         [Key]
         public int Id { get; set; }        
-        [Display(Name = "Personummer*")]
+        [Display(Name = "Personummer")]
         [RegularExpression(@"^(?<date>\d{6}|\d{8})[-\s]?\d{4}$", ErrorMessage = "Personnummer anges med 10 siffror (yymmddnnnn)")]
         [Required(ErrorMessage = "Du måste ange personnummer")]
         [ValidateOfAge]

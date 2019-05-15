@@ -20,9 +20,9 @@ namespace BiluthyrningApp.Repos
             _db = db;
         }
 
-        public List<Booking> GetBookings()
+        public List<Booking> GetActiveBookings()
         {
-            return _db.Bookings.Include(x => x.Customer).Include(x => x.Car).ToList();
+            return _db.Bookings.Include(x => x.Customer).Include(x => x.Car).Where(x => x.IsBookingActive == true).ToList();
         }
 
         public void Add(Booking booking)
@@ -49,6 +49,7 @@ namespace BiluthyrningApp.Repos
                     booking.Customer = customer;
                 }
             }
+            booking.IsBookingActive = true;
             Logs logs = new Logs();
             logs.Log = $"{booking.Customer.FirstName} hyrde bil {booking.Car.LicensePlate}";
             _db.Add(logs);
@@ -71,6 +72,7 @@ namespace BiluthyrningApp.Repos
                 booking.Car.NeedService = true;
             }
             Logs logs = new Logs();
+            booking.IsBookingActive = false;
             logs.Log = $"{booking.Customer.FirstName} lämnade tillbaka bil {booking.Car.LicensePlate}";
             booking.Customer = _db.Customers.Where(x => x.SSN == booking.Customer.SSN).SingleOrDefault();
             _db.Add(logs);
@@ -82,7 +84,7 @@ namespace BiluthyrningApp.Repos
 
         public List<Booking> ShowAllActiveBookings()
         {
-            return _db.Bookings.Include(x => x.Car).Include(x => x.Customer).Where(x => x.Car.IsBooked == true).ToList();
+            return _db.Bookings.Include(x => x.Customer).Include(x => x.Car).Where(x => x.IsBookingActive == true).ToList();
         }
     }
 }
