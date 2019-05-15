@@ -15,12 +15,15 @@ namespace BiluthyrningApp.Controllers
         private IBookingRepo _bookingRepo;
         private ICarRepo _carRepo;
         private ICustomerRepo _customerRepo;
+        private ILogsRepo _logsRepo;
 
-        public CustomerController(IBookingRepo bookingRepo, ICarRepo carRepo, ICustomerRepo customerRepo)
+
+        public CustomerController(IBookingRepo bookingRepo, ICarRepo carRepo, ICustomerRepo customerRepo, ILogsRepo logsRepo)
         {
             _bookingRepo = bookingRepo;
             _carRepo = carRepo;
             _customerRepo = customerRepo;
+            _logsRepo = logsRepo;
         }
 
         public IActionResult ShowListOfCustomers()
@@ -61,6 +64,12 @@ namespace BiluthyrningApp.Controllers
 
             return View("~/Views/Customer/CreateNewCustomer.cshtml");
                      
+        }
+
+        public IActionResult ShowCustomerLogs(int Id)
+        {
+            List<Logs> customerLogs = _logsRepo.ShowCustomerLogs(Id);
+            return View(customerLogs);
         }
     }
 }

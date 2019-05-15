@@ -23,5 +23,15 @@ namespace BiluthyrningApp.Repos
         {
             return _db.Logs.ToList();
         }
+
+        public List<Logs> ShowCustomerLogs(int id)
+        {
+            return _db.Logs.Where(x => x.CustomerId == id).ToList();
+        }
+
+        public List<Logs> ShowCarLogs(int Id)
+        {
+            return _db.Logs.Where(x => x.CarId == Id).ToList();
+        }
     }
 }

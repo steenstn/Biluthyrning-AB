@@ -9,5 +9,7 @@ namespace BiluthyrningApp.Repos
     public interface ILogsRepo
     {
         List<Logs> AllLogs();
+        List<Logs> ShowCustomerLogs(int id);
+        List<Logs> ShowCarLogs(int Id);
     }
 }

@@ -112,10 +112,16 @@ namespace BiluthyrningApp.Controllers
             decimal kmPrice = 1; // För alla bilar
             decimal nrOfHours = (decimal)(booking.ReturnDateAndTime - booking.BookingDateAndTime).TotalHours; // Tar fram antal timmar bilen varit bokad
             decimal nrOfDays = nrOfHours / 24; // Gör om antal timmar bilen varit bokad till antal dagar (med decimaler)
+            if (nrOfDays < 1)
+            {
+                // Måste minst bokas i 24 timmar
+                nrOfDays = 1;
+            }
             decimal basePrice = baseDayRental * nrOfDays; // Grundpris för alla bilar
             decimal vanPrice = 1.2M; // Extrapris för typen van          
             decimal miniBusPrice = 1.7M; // Extrapris för typen minibuss
             decimal miniBusPriceExtraPerKm = 1.5M; // Extrapris per km för typen minibuss
+            
             
             if (booking.Car.CarSize == Carsize.Small)
             {

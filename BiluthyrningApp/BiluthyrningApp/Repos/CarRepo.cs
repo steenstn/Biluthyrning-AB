@@ -57,6 +57,7 @@ namespace BiluthyrningApp.Repos
             car.NeedService = false;
             Logs logs = new Logs();
             logs.Log = $"{car.LicensePlate} skickades på service";
+            logs.CarId = car.Id;
             _db.Add(logs);
             _db.Update(car);
             _db.SaveChanges();
@@ -68,6 +69,7 @@ namespace BiluthyrningApp.Repos
             car.NeedsCleaning = false;
             Logs logs = new Logs();
             logs.Log = $"{car.LicensePlate} städades";
+            logs.CarId = car.Id;
             _db.Add(logs);
             _db.Update(car);
             _db.SaveChanges();

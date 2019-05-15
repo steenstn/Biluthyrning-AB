@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Logs>
+
+@{
+    ViewData["Title"] = "ShowCarLogs";
+}
+
+<h1>Bilens loggar</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(m => m.Log)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Log)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

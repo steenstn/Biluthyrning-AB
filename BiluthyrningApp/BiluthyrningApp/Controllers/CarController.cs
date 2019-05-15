@@ -14,12 +14,15 @@ namespace BiluthyrningApp.Controllers
         private IBookingRepo _bookingRepo;
         private ICarRepo _carRepo;
         private ICustomerRepo _customerRepo;
+        private ILogsRepo _logsRepo;
 
-        public CarController(IBookingRepo bookingRepo, ICarRepo carRepo, ICustomerRepo customerRepo)
+
+        public CarController(IBookingRepo bookingRepo, ICarRepo carRepo, ICustomerRepo customerRepo, ILogsRepo logsRepo)
         {
             _bookingRepo = bookingRepo;
             _carRepo = carRepo;
             _customerRepo = customerRepo;
+            _logsRepo = logsRepo;
         }
         public IActionResult ShowAllCars()
         {
@@ -83,6 +86,11 @@ namespace BiluthyrningApp.Controllers
             _carRepo.RemoveCar(id);
             ViewBag.ok = $"Bilen är nu bortagen";
             return View("~/Views/Home/Index.cshtml");
+        }
+
+        public IActionResult ShowCarLogs(int Id)
+        {
+            return View(_logsRepo.ShowCarLogs(Id));
         }
     }
 }

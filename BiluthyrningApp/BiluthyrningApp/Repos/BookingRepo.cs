@@ -52,6 +52,8 @@ namespace BiluthyrningApp.Repos
             booking.IsBookingActive = true;
             Logs logs = new Logs();
             logs.Log = $"{booking.Customer.FirstName} hyrde bil {booking.Car.LicensePlate}";
+            logs.CustomerId = booking.Customer.Id;
+            logs.CarId = booking.Car.Id;
             _db.Add(logs);
             _db.Add(booking);
             _db.SaveChanges();
@@ -75,6 +77,8 @@ namespace BiluthyrningApp.Repos
             booking.IsBookingActive = false;
             logs.Log = $"{booking.Customer.FirstName} lämnade tillbaka bil {booking.Car.LicensePlate}";
             booking.Customer = _db.Customers.Where(x => x.SSN == booking.Customer.SSN).SingleOrDefault();
+            logs.CustomerId = booking.Customer.Id;
+            logs.CarId = booking.Car.Id;
             _db.Add(logs);
             _db.Update(booking);            
             _db.SaveChanges();
