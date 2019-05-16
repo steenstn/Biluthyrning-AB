@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BiluthyrningApp.Data;
 using BiluthyrningApp.Models;
+using BiluthyrningApp.Models.CarPrices;
 using BiluthyrningApp.Repos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -107,9 +108,7 @@ namespace BiluthyrningApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Payment([Bind("Id, Customer, Car, Mileage, BookingDateAndTime, ReturnDateAndTime")] Booking booking)
         {
-            booking.Car.IsBooked = false;            
-            decimal baseDayRental = 100; // För alla bilar
-            decimal kmPrice = 1; // För alla bilar
+            booking.Car.IsBooked = false;         
             decimal nrOfHours = (decimal)(booking.ReturnDateAndTime - booking.BookingDateAndTime).TotalHours; // Tar fram antal timmar bilen varit bokad
             decimal nrOfDays = nrOfHours / 24; // Gör om antal timmar bilen varit bokad till antal dagar (med decimaler)
             if (nrOfDays < 1)
@@ -117,24 +116,10 @@ namespace BiluthyrningApp.Controllers
                 // Måste minst bokas i 24 timmar
                 nrOfDays = 1;
             }
-            decimal basePrice = baseDayRental * nrOfDays; // Grundpris för alla bilar
-            decimal vanPrice = 1.2M; // Extrapris för typen van          
-            decimal miniBusPrice = 1.7M; // Extrapris för typen minibuss
-            decimal miniBusPriceExtraPerKm = 1.5M; // Extrapris per km för typen minibuss
-            
-            
-            if (booking.Car.CarSize == Carsize.Small)
-            {
-                booking.Price = (decimal)Math.Round(basePrice, 0);
-            }
-            else if (booking.Car.CarSize == Carsize.Van)
-            {
-                booking.Price = (decimal)Math.Round((basePrice * vanPrice) + kmPrice * booking.Mileage, 0);
-            }
-            else if (booking.Car.CarSize == Carsize.Minibus)
-            {
-                booking.Price = (decimal)Math.Round(basePrice * miniBusPrice + kmPrice * booking.Mileage * miniBusPriceExtraPerKm, 0);
-            }
+
+            var price = GetPrice(booking.Car.CarSize, (int)nrOfDays, (int)booking.Mileage);
+
+            booking.Price = price.GetPrice();
             booking.Car.DistanceInKm += booking.Mileage;
 
             if (ModelState.IsValid)
@@ -145,6 +130,20 @@ namespace BiluthyrningApp.Controllers
             return View();
         }
 
+        private CarPrice GetPrice(Carsize carSize, int numberOfDays, int numberOfKm)
+        {
+            switch (carSize)
+            {
+                case Carsize.Minibus:
+                    return new MinibusPrice(numberOfDays, numberOfKm);
+                case Carsize.Small:
+                    return new SmallCarPrice(numberOfDays);
+                case Carsize.Van:
+                    return new VanPrice(numberOfDays, numberOfKm);
+                default:
+                    throw new Exception("Unsupported car type " + carSize);
+            }
+        }
         public IActionResult ShowAllActiveBookings()
         {
             return View(_bookingRepo.ShowAllActiveBookings());
